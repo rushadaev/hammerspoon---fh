@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Hammerspoon.xcodeproj">
+      location = "group:FunnyHow.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:LuaSkin/LuaSkin.xcodeproj">

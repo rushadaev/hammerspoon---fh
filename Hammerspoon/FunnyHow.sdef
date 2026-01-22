@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 
-<dictionary title="Hammerspoon">
+<dictionary title="Funny How">
 
     <!-- STANDARD SUIE -->
     <suite name="Standard Suite" code="????" description="Common classes and commands for all applications.">
@@ -24,8 +24,8 @@
 
     </suite>
 
-    <!-- HAMMERSPOON SUITE -->
-    <suite name="Hammerspoon Suite" code="HmSp" description="Hammerspoon-specific classes.">
+    <!-- FUNNY HOW SUITE -->
+    <suite name="Funny How Suite" code="HmSp" description="Funny How specific classes.">
 
         <!-- EXECUTE LUA CODE -->
         <command name="execute lua code" code="HmSpEXEC" description="Execute Lua Code.">

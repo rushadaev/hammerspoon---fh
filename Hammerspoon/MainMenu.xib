@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -20,11 +20,11 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
-                <menuItem title="Hammerspoon" id="1Xt-HY-uBw">
+                <menuItem title="Funny How" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Hammerspoon" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="Funny How" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
-                            <menuItem title="About Hammerspoon" id="5kV-Vb-QxS">
+                            <menuItem title="About Funny How" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showAboutPanel:" target="Voe-Tx-rLC" id="bG4-ba-EWj"/>
@@ -48,7 +48,7 @@
                                 <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                            <menuItem title="Hide Hammerspoon" keyEquivalent="h" id="Olw-nP-bQN">
+                            <menuItem title="Hide Funny How" keyEquivalent="h" id="Olw-nP-bQN">
                                 <connections>
                                     <action selector="hide:" target="-1" id="PnN-Uc-m68"/>
                                 </connections>
@@ -65,7 +65,7 @@
                                     <action selector="unhideAllApplications:" target="-1" id="Dhg-Le-xox"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Quit Hammerspoon" keyEquivalent="q" id="4sb-4s-VLi">
+                            <menuItem title="Quit Funny How" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
                                     <action selector="quitHammerspoon:" target="Voe-Tx-rLC" id="gjE-dV-WIu"/>
                                 </connections>
@@ -362,7 +362,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                         <items>
-                            <menuItem title="Hammerspoon Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                            <menuItem title="Funny How Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                 <connections>
                                     <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
                                 </connections>
@@ -371,10 +371,11 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="139" y="154"/>
         </menu>
         <menu id="QDI-lT-VMy" userLabel="Status Item Menu">
             <items>
-                <menuItem title="Reload Config" id="57b-po-9Xy">
+                <menuItem title="Reload Config" state="on" id="57b-po-9Xy">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="reloadConfig:" target="Voe-Tx-rLC" id="Stb-gf-5Fa"/>
@@ -400,7 +401,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="47L-wL-Aut"/>
-                <menuItem title="About Hammerspoon" id="2LS-Fs-g1y">
+                <menuItem title="About Funny How" id="2LS-Fs-g1y">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showAboutPanel:" target="Voe-Tx-rLC" id="Vu4-C4-kcK"/>
@@ -413,13 +414,14 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="tOT-wg-m6d"/>
-                <menuItem title="Quit Hammerspoon" id="MPd-JN-QB1">
+                <menuItem title="Quit Funny How" id="MPd-JN-QB1">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="quitHammerspoon:" target="Voe-Tx-rLC" id="5Aw-nP-mqa"/>
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="140" y="-38.5"/>
         </menu>
         <customObject id="9hz-Cm-Er1" customClass="SUUpdater"/>
         <userDefaultsController representsSharedInstance="YES" id="b8h-DN-29z"/>

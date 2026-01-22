@@ -113,12 +113,12 @@
 			<key>CFBundleTypeMIMETypes</key>
 			<array/>
 			<key>CFBundleTypeName</key>
-			<string>Hammerspoon Module</string>
+			<string>Funny How Module</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.hammerspoon.Hammerspoon.Spoon</string>
+				<string>org.funnyhow.FunnyHow.Spoon</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<integer>1</integer>
@@ -160,7 +160,7 @@
 			<key>CFBundleURLIconFile</key>
 			<string></string>
 			<key>CFBundleURLName</key>
-			<string>org.hammerspoon.Hammerspoon</string>
+			<string>org.funnyhow.FunnyHow</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>hammerspoon</string>
@@ -168,7 +168,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>hammerspoon.Hammerspoon.http</string>
+			<string>funnyhow.FunnyHow.http</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>http</string>
@@ -176,7 +176,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>hammerspoon.Hammerspoon.https</string>
+			<string>funnyhow.FunnyHow.https</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>https</string>
@@ -184,7 +184,7 @@
 		</dict>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>org.hammerspoon.Hammerspoon.mailto</string>
+			<string>org.funnyhow.FunnyHow.mailto</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>mailto</string>
@@ -211,19 +211,19 @@
 		<true/>
 	</dict>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>Hammerspoon needs to send events to automate applications.</string>
+	<string>Funny How needs to send events to automate applications.</string>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Some Hammerspoon extensions require access to the camera.</string>
+	<string>Some Funny How extensions require access to the camera.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Released under MIT license.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Some Hammerspoon extensions (such as hs.location) require access to your location.</string>
+	<string>Some Funny How extensions (such as hs.location) require access to your location.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Some Hammerspoon extensions (such as hs.noises) require access to the microphone.</string>
+	<string>Some Funny How extensions (such as hs.noises) require access to the microphone.</string>
 	<key>NSPrincipalClass</key>
 	<string>SentryCrashExceptionApplication</string>
 	<key>NSServices</key>
@@ -232,7 +232,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Send to Hammerspoon</string>
+				<string>Send to Funny How</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>processDockIconDraggedText</string>
@@ -247,7 +247,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Send to Hammerspoon</string>
+				<string>Send to Funny How</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>processDockIconDraggedFile</string>
@@ -267,7 +267,7 @@
 	<key>NSUserNotificationAlertStyle</key>
 	<string>alert</string>
 	<key>OSAScriptingDefinition</key>
-	<string>Hammerspoon.sdef</string>
+	<string>FunnyHow.sdef</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
@@ -285,7 +285,7 @@
 			<key>UTTypeIconFile</key>
 			<string>Spoon</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.hammerspoon.Hammerspoon.Spoon</string>
+			<string>org.funnyhow.FunnyHow.Spoon</string>
 			<key>UTTypeReferenceURL</key>
 			<string>https://www.hammerspoon.org/</string>
 			<key>UTTypeTagSpecification</key>

@@ -103,7 +103,7 @@
 		4F5134641C30819000EFD6D4 /* chooser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F5134631C30819000EFD6D4 /* chooser.h */; };
 		4F5560A1279F6A0300B91FD8 /* HSStreamDeckDeviceMk2.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F55609F279F6A0300B91FD8 /* HSStreamDeckDeviceMk2.h */; };
 		4F5560A2279F6A0300B91FD8 /* HSStreamDeckDeviceMk2.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5560A0279F6A0300B91FD8 /* HSStreamDeckDeviceMk2.m */; };
-		4F5B6E6B1E9E86BB003FC580 /* Hammerspoon.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 4F5B6E6A1E9E86BB003FC580 /* Hammerspoon.sdef */; };
+		4F5B6E6B1E9E86BB003FC580 /* FunnyHow.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 4F5B6E6A1E9E86BB003FC580 /* FunnyHow.sdef */; };
 		4F5B6E6E1E9E87CE003FC580 /* HSAppleScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5B6E6D1E9E87CE003FC580 /* HSAppleScript.m */; };
 		4F6653E6238C36F100DEE120 /* HSStreamDeckDeviceOriginal.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F6653E4238C36F100DEE120 /* HSStreamDeckDeviceOriginal.h */; };
 		4F6653E7238C36F100DEE120 /* HSStreamDeckDeviceOriginal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6653E5238C36F100DEE120 /* HSStreamDeckDeviceOriginal.m */; };
@@ -1724,7 +1724,7 @@
 		4F5134631C30819000EFD6D4 /* chooser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = chooser.h; path = extensions/chooser/chooser.h; sourceTree = "<group>"; };
 		4F55609F279F6A0300B91FD8 /* HSStreamDeckDeviceMk2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HSStreamDeckDeviceMk2.h; path = extensions/streamdeck/HSStreamDeckDeviceMk2.h; sourceTree = "<group>"; };
 		4F5560A0279F6A0300B91FD8 /* HSStreamDeckDeviceMk2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HSStreamDeckDeviceMk2.m; path = extensions/streamdeck/HSStreamDeckDeviceMk2.m; sourceTree = "<group>"; };
-		4F5B6E6A1E9E86BB003FC580 /* Hammerspoon.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Hammerspoon.sdef; sourceTree = "<group>"; };
+		4F5B6E6A1E9E86BB003FC580 /* FunnyHow.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FunnyHow.sdef; sourceTree = "<group>"; };
 		4F5B6E6C1E9E87CE003FC580 /* HSAppleScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSAppleScript.h; sourceTree = "<group>"; };
 		4F5B6E6D1E9E87CE003FC580 /* HSAppleScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSAppleScript.m; sourceTree = "<group>"; };
 		4F64D8BD1B724C4B00FC4C65 /* alert.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = alert.lua; path = extensions/alert/alert.lua; sourceTree = "<group>"; };
@@ -1999,7 +1999,7 @@
 		942E71A919B11176001BA156 /* MJAccessibilityUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJAccessibilityUtils.m; sourceTree = "<group>"; };
 		943BF0F019A4B43E0017F79D /* MJUserNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJUserNotificationManager.h; sourceTree = "<group>"; };
 		943BF0F119A4B43E0017F79D /* MJUserNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJUserNotificationManager.m; sourceTree = "<group>"; };
-		9445CA0B19083251002568BB /* Hammerspoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hammerspoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9445CA0B19083251002568BB /* Funny How.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Funny How.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		944A2D341989735300D8DC90 /* MJAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJAppDelegate.m; sourceTree = "<group>"; };
 		944A2D351989735300D8DC90 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		944A2D3D1989737E00D8DC90 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -3998,7 +3998,7 @@
 		9445CA0C19083251002568BB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9445CA0B19083251002568BB /* Hammerspoon.app */,
+				9445CA0B19083251002568BB /* Funny How.app */,
 				D02F95241A00221C00E28BB2 /* Hammerspoon Tests.xctest */,
 				4FBE2CF91B7261A200407788 /* libapplication.dylib */,
 				4FBE2D101B72631600407788 /* libapplicationwatcher.dylib */,
@@ -4135,7 +4135,7 @@
 				944A2D3F1989737E00D8DC90 /* Images.xcassets */,
 				944A2D401989737E00D8DC90 /* Hammerspoon-Info.plist */,
 				944A2D411989737E00D8DC90 /* Hammerspoon-Prefix.pch */,
-				4F5B6E6A1E9E86BB003FC580 /* Hammerspoon.sdef */,
+				4F5B6E6A1E9E86BB003FC580 /* FunnyHow.sdef */,
 				4F7F3B70272B3E2900E05732 /* Intents.intentdefinition */,
 			);
 			name = Extras;
@@ -6276,9 +6276,9 @@
 			productReference = 6AE181271D36E90B0097211C /* libnoises.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		9445CA0A19083251002568BB /* Hammerspoon */ = {
+		9445CA0A19083251002568BB /* Funny How */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9445CA3C19083251002568BB /* Build configuration list for PBXNativeTarget "Hammerspoon" */;
+			buildConfigurationList = 9445CA3C19083251002568BB /* Build configuration list for PBXNativeTarget "Funny How" */;
 			buildPhases = (
 				CDFA91F1078130B13A38C135 /* [CP] Check Pods Manifest.lock */,
 				4F251E7F1A49D5BE00AB6103 /* Prepare secret header file */,
@@ -6395,7 +6395,7 @@
 			);
 			name = Hammerspoon;
 			productName = Hammerspoon;
-			productReference = 9445CA0B19083251002568BB /* Hammerspoon.app */;
+			productReference = 9445CA0B19083251002568BB /* Funny How.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B8524F28201A88CD00844F3D /* hid */ = {
@@ -7010,7 +7010,7 @@
 				949CDC001990759B00906CCE /* ConsoleWindow.xib in Resources */,
 				949CDBFE1990747B00906CCE /* PreferencesWindow.xib in Resources */,
 				945B65B2198D31FC002D2E30 /* setup.lua in Resources */,
-				4F5B6E6B1E9E86BB003FC580 /* Hammerspoon.sdef in Resources */,
+				4F5B6E6B1E9E86BB003FC580 /* FunnyHow.sdef in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

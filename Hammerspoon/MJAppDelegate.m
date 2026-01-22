@@ -59,7 +59,7 @@
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)fileAndPath {
     NSString *typeOfFile = [[NSWorkspace sharedWorkspace] typeOfFile:fileAndPath error:nil];
 
-    if ([typeOfFile isEqualToString:@"org.hammerspoon.hammerspoon.spoon"]) {
+    if ([typeOfFile isEqualToString:@"org.funnyhow.FunnyHow.Spoon"]) {
         // This is a Spoon, so we will attempt to copy it to the Spoons directory
         NSError *fileError;
         BOOL success = NO;
@@ -159,7 +159,7 @@
 
         [alert addButtonWithTitle:@"Cancel"];
         [alert setMessageText:@"Do you want to delete the preferences?"];
-        [alert setInformativeText:@"Deleting the preferences will reset all Hammerspoon settings (including everything that uses hs.settings) to their defaults. This does not remove anything in ~/.hammerspoon/"];
+        [alert setInformativeText:@"Deleting the preferences will reset all FunnyHow settings (including everything that uses hs.settings) to their defaults. This does not remove anything in ~/.funnyhow/"];
         [alert setAlertStyle:NSAlertStyleWarning];
 
         if ([alert runModal] == NSAlertFirstButtonReturn) {
