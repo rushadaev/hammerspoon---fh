@@ -375,50 +375,64 @@
         </menu>
         <menu id="QDI-lT-VMy" userLabel="Status Item Menu">
             <items>
-                <menuItem title="Reload Config" state="on" id="57b-po-9Xy">
+                <menuItem title="Login" id="EfW-Rq-Nso">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="reloadConfig:" target="Voe-Tx-rLC" id="Stb-gf-5Fa"/>
-                    </connections>
                 </menuItem>
-                <menuItem title="Open Config" id="H8w-tZ-oRN">
+                <menuItem title="Schedule Lock" id="N7U-9Y-mt0">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="openConfig:" target="Voe-Tx-rLC" id="HP4-um-M1o"/>
-                    </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="C3i-ao-hBZ"/>
-                <menuItem title="Console..." id="kQv-Ke-mdZ">
+                <menuItem isSeparatorItem="YES" id="4Ox-UX-tzR"/>
+                <menuItem title="Developer" id="WYy-Kw-9fx">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showConsoleWindow:" target="Voe-Tx-rLC" id="1wg-Dg-jnP"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Preferences..." id="RGq-yR-Y0Q">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showPreferencesWindow:" target="Voe-Tx-rLC" id="0WV-v0-6Fl"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="47L-wL-Aut"/>
-                <menuItem title="About Funny How" id="2LS-Fs-g1y">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="showAboutPanel:" target="Voe-Tx-rLC" id="Vu4-C4-kcK"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Check for Updates..." id="zC2-p9-aqe">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="checkForUpdates:" target="9hz-Cm-Er1" id="ffQ-zR-1tt"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="tOT-wg-m6d"/>
-                <menuItem title="Quit Funny How" id="MPd-JN-QB1">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="quitHammerspoon:" target="Voe-Tx-rLC" id="5Aw-nP-mqa"/>
-                    </connections>
+                    <menu key="submenu" title="Developer" id="9zL-ax-kgb">
+                        <items>
+                            <menuItem title="Open Config" id="H8w-tZ-oRN">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openConfig:" target="Voe-Tx-rLC" id="HP4-um-M1o"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reload Config" id="57b-po-9Xy">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="reloadConfig:" target="Voe-Tx-rLC" id="Stb-gf-5Fa"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="C3i-ao-hBZ"/>
+                            <menuItem title="Console..." id="kQv-Ke-mdZ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showConsoleWindow:" target="Voe-Tx-rLC" id="1wg-Dg-jnP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Preferences..." id="RGq-yR-Y0Q">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showPreferencesWindow:" target="Voe-Tx-rLC" id="0WV-v0-6Fl"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="47L-wL-Aut"/>
+                            <menuItem title="About Funny How" id="2LS-Fs-g1y">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showAboutPanel:" target="Voe-Tx-rLC" id="Vu4-C4-kcK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Check for Updates..." id="zC2-p9-aqe">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdates:" target="9hz-Cm-Er1" id="ffQ-zR-1tt"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="tOT-wg-m6d"/>
+                            <menuItem title="Quit Funny How" id="MPd-JN-QB1">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="quitHammerspoon:" target="Voe-Tx-rLC" id="5Aw-nP-mqa"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
             </items>
             <point key="canvasLocation" x="140" y="-38.5"/>

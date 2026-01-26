@@ -12,6 +12,7 @@
 #import "HSLogger.h"
 #import "variables.h"
 #import "secrets.h"
+#import <Security/Security.h>
 
 #ifdef SENTRY_API_URL
 @import Sentry;
@@ -286,6 +287,33 @@
     }
 
     MJMenuIconSetup(self.menuBarMenu);
+
+    // Check for enterprise mode
+    NSString *enterpriseMarkerPath = [MJConfigDirAbsolute() stringByAppendingPathComponent:@".enterprise"];
+    self.enterpriseMode = [[NSFileManager defaultManager] fileExistsAtPath:enterpriseMarkerPath];
+
+    if (self.enterpriseMode) {
+        NSLog(@"🔒 Enterprise mode enabled");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HSRequireAdminToQuit"];
+
+        // Hide quit menu items
+        NSMenu *mainMenu = [[NSApplication sharedApplication] mainMenu];
+        if (mainMenu && [mainMenu numberOfItems] > 0) {
+            NSMenu *appMenu = [[mainMenu itemAtIndex:0] submenu];
+            NSMenuItem *quitItem = [appMenu itemWithTitle:@"Quit Funny How"];
+            if (quitItem) {
+                [quitItem setHidden:YES];
+                [quitItem setEnabled:NO];
+            }
+        }
+
+        NSMenuItem *statusQuitItem = [self.menuBarMenu itemWithTitle:@"Quit Funny How"];
+        if (statusQuitItem) {
+            [statusQuitItem setHidden:YES];
+            [statusQuitItem setEnabled:NO];
+        }
+    }
+
     MJDockIconSetup();
     [[MJConsoleWindowController singleton] setup];
     MJLuaCreate();
@@ -316,8 +344,49 @@
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-    MJLuaDestroy();
-    return NSTerminateNow;
+    // Check if admin authorization is required (enterprise mode)
+    BOOL requiresAdminAuth = [[NSUserDefaults standardUserDefaults] boolForKey:@"HSRequireAdminToQuit"];
+
+    if (!requiresAdminAuth) {
+        MJLuaDestroy();
+        return NSTerminateNow;
+    }
+
+    // Require admin authentication
+    AuthorizationRef authRef;
+    OSStatus status = AuthorizationCreate(NULL, kAuthorizationEmptyEnvironment,
+                                         kAuthorizationFlagDefaults, &authRef);
+
+    if (status != errAuthorizationSuccess) {
+        NSLog(@"🔒 Failed to create authorization reference: %d", status);
+        return NSTerminateCancel;
+    }
+
+    AuthorizationItem right = {kAuthorizationRightExecute, 0, NULL, 0};
+    AuthorizationRights rights = {1, &right};
+    AuthorizationFlags flags = kAuthorizationFlagInteractionAllowed |
+                               kAuthorizationFlagExtendRights |
+                               kAuthorizationFlagPreAuthorize;
+
+    status = AuthorizationCopyRights(authRef, &rights, kAuthorizationEmptyEnvironment,
+                                    flags, NULL);
+
+    AuthorizationFree(authRef, kAuthorizationFlagDefaults);
+
+    if (status == errAuthorizationSuccess) {
+        NSLog(@"🔒 Admin authorization granted, proceeding with quit");
+        MJLuaDestroy();
+        return NSTerminateNow;
+    } else {
+        NSLog(@"🔒 Admin authorization denied or cancelled");
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"Administrator Privileges Required"];
+        [alert setInformativeText:@"You need administrator privileges to quit Funny How."];
+        [alert setAlertStyle:NSAlertStyleWarning];
+        [alert addButtonWithTitle:@"OK"];
+        [alert runModal];
+        return NSTerminateCancel;
+    }
 }
 
 - (void) registerDefaultDefaults {
