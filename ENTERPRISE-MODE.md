@@ -14,9 +14,10 @@ Funny How now includes **enterprise lockdown features** for recording studio env
    - Quit menu items are hidden in enterprise mode
 
 2. **Protected Configuration**
-   - Config files in `~/.hammerspoon/` cannot be deleted by regular users
+   - Config files in `~/.hammerspoon/` are **READ-ONLY**
+   - Owned by `root`, requires `sudo` to edit
+   - Cannot be deleted or modified by regular users
    - ACL (Access Control List) permissions prevent deletion
-   - Users can still modify config, but cannot remove it
 
 3. **Auto-Restart**
    - App automatically restarts if force-quit from Activity Monitor
@@ -133,15 +134,35 @@ ls -la ~/.hammerspoon/.enterprise
 3. Force Quit it
 4. Wait 5-10 seconds → app should restart automatically
 
-### Test 4: Try to Delete Config
+### Test 4: Try to Edit Config (Should Fail)
 
 ```bash
-# This should fail with permission denied:
-rm ~/.hammerspoon/init.lua
-# Output: rm: ~/.hammerspoon/init.lua: Operation not permitted
+# Try to edit without sudo - should fail:
+echo "# test" >> ~/.hammerspoon/init.lua
+# Output: Permission denied
+
+# Check ownership
+ls -l ~/.hammerspoon/init.lua
+# Should show: root wheel (not your username)
 ```
 
-### Test 5: Verify Quit Menu Hidden
+### Test 5: Try to Delete Config
+
+```bash
+# This should also fail:
+rm ~/.hammerspoon/init.lua
+# Output: rm: ~/.hammerspoon/init.lua: Permission denied
+```
+
+### Test 6: Verify Config is Owned by Root
+
+```bash
+ls -l ~/.hammerspoon/init.lua
+# Expected output:
+# -rw-r--r--  1 root  wheel  ...  init.lua
+```
+
+### Test 7: Verify Quit Menu Hidden
 
 1. Launch app
 2. Click menu bar icon (waveform)
@@ -160,14 +181,17 @@ launchctl unload ~/Library/LaunchAgents/com.funnyhow.FunnyHow.plist
 # 2. Remove LaunchAgent
 rm ~/Library/LaunchAgents/com.funnyhow.FunnyHow.plist
 
-# 3. Remove ACL permissions
+# 3. Remove root ownership and permissions
+sudo chown $USER ~/.hammerspoon/init.lua
+sudo chmod 644 ~/.hammerspoon/init.lua
+
+# 4. Remove ACL permissions
 chmod -a "user:$USER deny delete" ~/.hammerspoon 2>/dev/null
-chmod -a "user:$USER deny delete" ~/.hammerspoon/init.lua 2>/dev/null
 
-# 4. Remove enterprise marker
-rm ~/.hammerspoon/.enterprise
+# 5. Remove enterprise marker
+sudo rm ~/.hammerspoon/.enterprise
 
-# 5. Remove app
+# 6. Remove app
 sudo rm -rf "/Applications/Funny How.app"
 ```
 
@@ -209,7 +233,8 @@ FunnyHow-Enterprise/
 
 ### What CAN Be Prevented:
 ✅ Normal quit (Cmd+Q, menu)
-✅ Config file deletion (ACLs)
+✅ Config file editing (requires sudo)
+✅ Config file deletion (root ownership + ACLs)
 ✅ Disabling auto-launch
 ✅ App staying closed after force-quit
 
@@ -258,19 +283,41 @@ Make sure Security.framework is properly linked:
 otool -L "/Applications/Funny How.app/Contents/MacOS/Funny How" | grep Security
 ```
 
-### Cannot Delete Config (Need to Update)
+### Need to Edit Read-Only Config
 
-If you need to update the config and ACLs are blocking you:
+The config is owned by root and read-only. To edit it:
 
+**Option 1: Edit with sudo**
 ```bash
-# Temporarily remove ACL
-chmod -a "user:$USER deny delete" ~/.hammerspoon/init.lua
+sudo nano ~/.hammerspoon/init.lua
+# Make your changes, then save and exit
+```
+
+**Option 2: Temporarily change ownership**
+```bash
+# Take ownership (requires admin password)
+sudo chown $USER ~/.hammerspoon/init.lua
 
 # Make your changes
 nano ~/.hammerspoon/init.lua
 
-# Re-add ACL
-chmod +a "user:$USER deny delete" ~/.hammerspoon/init.lua
+# Give ownership back to root
+sudo chown root:wheel ~/.hammerspoon/init.lua
+sudo chmod 644 ~/.hammerspoon/init.lua
+```
+
+**Option 3: Disable enterprise mode temporarily**
+```bash
+# Remove enterprise marker
+sudo rm ~/.hammerspoon/.enterprise
+
+# Restart app (will run in normal mode)
+# Make changes to config
+
+# Re-enable enterprise mode
+sudo touch ~/.hammerspoon/.enterprise
+sudo chown root:wheel ~/.hammerspoon/.enterprise
+sudo chmod 444 ~/.hammerspoon/.enterprise
 ```
 
 ---
@@ -320,6 +367,7 @@ ls -led ~/.hammerspoon/init.lua
 ### Version 1.0 (2026-01-23)
 - ✅ Initial enterprise mode implementation
 - ✅ Admin password quit protection
+- ✅ **Read-only config** (root ownership, requires sudo to edit)
 - ✅ Config deletion protection via ACLs
 - ✅ Auto-restart via LaunchAgent
 - ✅ Enterprise marker detection

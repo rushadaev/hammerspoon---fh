@@ -75,11 +75,24 @@ touch "$CONFIG_DIR/.enterprise"
 echo "   ✅ Created enterprise marker"
 
 echo ""
-echo "🔐 Step 4: Protecting config from deletion..."
-# Set ACLs to prevent deletion
+echo "🔐 Step 4: Protecting config from editing and deletion..."
+echo "   (You may be prompted for your admin password)"
+
+# Make config read-only by changing ownership to root
+if [ -f "$CONFIG_DIR/init.lua" ]; then
+    sudo chown root:wheel "$CONFIG_DIR/init.lua"
+    sudo chmod 644 "$CONFIG_DIR/init.lua"
+    echo "   ✅ init.lua is now read-only (owned by root)"
+fi
+
+# Protect entire directory from deletion
+sudo chown root:wheel "$CONFIG_DIR/.enterprise"
+sudo chmod 444 "$CONFIG_DIR/.enterprise"
+
+# Set ACLs to prevent deletion of directory itself
 chmod +a "user:$USER deny delete" "$CONFIG_DIR" 2>/dev/null || echo "   ⚠️  Could not set ACL (may require newer macOS)"
-chmod +a "user:$USER deny delete" "$CONFIG_DIR/init.lua" 2>/dev/null || echo "   ⚠️  Could not set ACL on init.lua"
-echo "   ✅ Config protection enabled"
+
+echo "   ✅ Config is now fully protected (read-only)"
 
 echo ""
 echo "🚀 Step 5: Installing LaunchAgent for auto-restart..."
@@ -112,6 +125,7 @@ echo "🔒 Enterprise Features:"
 echo "  ✅ Admin password required to quit"
 echo "  ✅ Quit menu items hidden"
 echo "  ✅ Auto-restart if force-quit"
+echo "  ✅ Config is READ-ONLY (requires sudo to edit)"
 echo "  ✅ Config protected from deletion"
 echo ""
 echo "🎵 Funny How should now be running!"
