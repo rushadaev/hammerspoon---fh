@@ -7,6 +7,9 @@
 # Build artifacts
 /Hammerspoon.app
 /Hammerspoon*.zip
+/Funny How.app
+/FunnyHow*.app
+build
 /LuaSkin.framework
 *.dSYM
 
@@ -29,6 +32,7 @@ build/
 artifacts/
 DerivedData/
 *.xcarchive
+docs/plans/
 
 ## Various settings
 *.pbxuser

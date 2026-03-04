@@ -11,7 +11,7 @@ APP_NAME = Funny How.app
 ARCHIVE_PATH = $(BUILD_DIR)/FunnyHow.xcarchive
 EXPORT_PATH = $(BUILD_DIR)/export
 
-.PHONY: all clean build archive export-unsigned export-signed help
+.PHONY: all clean clean-all rebuild rebuild-unsigned build archive export-unsigned export-signed help
 
 help:
 	@echo "FunnyHow Build Commands:"
@@ -20,6 +20,9 @@ help:
 	@echo "  make archive        - Create Xcode archive"
 	@echo "  make export-unsigned - Export unsigned app (for testing)"
 	@echo "  make clean          - Clean build directory"
+	@echo "  make clean-all      - Remove everything (app, configs, caches, logs)"
+	@echo "  make rebuild        - Clean everything and rebuild fresh (signed)"
+	@echo "  make rebuild-unsigned - Clean everything and rebuild unsigned (for testing)"
 	@echo ""
 	@echo "For distribution, use 'make archive' then sign in Xcode."
 
@@ -36,18 +39,62 @@ archive:
 	@echo "Open in Xcode to sign and export: open $(ARCHIVE_PATH)"
 
 export-unsigned:
-	@mkdir -p $(EXPORT_PATH)
-	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Release \
-		-derivedDataPath $(BUILD_DIR)/DerivedData \
-		CONFIGURATION_BUILD_DIR=$(EXPORT_PATH) \
+	@echo "Building unsigned app (using default DerivedData)..."
+	@xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Debug \
 		CODE_SIGN_IDENTITY="-" \
 		CODE_SIGNING_REQUIRED=NO \
-		build
+		ENABLE_ADDRESS_SANITIZER=NO \
+		ENABLE_THREAD_SANITIZER=NO \
+		ENABLE_UNDEFINED_BEHAVIOR_SANITIZER=NO \
+		build | grep -E '^\*\*|BUILD|error:|warning:' || true
 	@echo ""
-	@echo "Unsigned app built at: $(EXPORT_PATH)/$(APP_NAME)"
+	@echo "Copying app to build directory..."
+	@mkdir -p $(EXPORT_PATH)
+	@cp -R ~/Library/Developer/Xcode/DerivedData/FunnyHow-*/Build/Products/Debug/"$(APP_NAME)" $(EXPORT_PATH)/ 2>/dev/null || \
+		(echo "Error: Could not find built app. Build may have failed." && exit 1)
+	@echo ""
+	@echo "✅ Unsigned app built at: $(EXPORT_PATH)/$(APP_NAME)"
 	@echo "NOTE: This is for local testing only. Not distributable."
 
 clean:
 	rm -rf $(BUILD_DIR)
 	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) clean
 	@echo "Build directory cleaned"
+
+clean-all:
+	@echo "🧹 Cleaning everything..."
+	@echo "Stopping running FunnyHow process..."
+	@pkill -x "Funny How" || true
+	@echo "Removing installed app..."
+	@rm -rf "/Applications/Funny How.app" || true
+	@echo "Removing built app in repo..."
+	@rm -rf "Funny How.app" || true
+	@echo "Removing build directory..."
+	@rm -rf $(BUILD_DIR) || true
+	@echo "Removing runtime config..."
+	@rm -rf ~/.funny-how || true
+	@echo "Removing application support..."
+	@rm -rf ~/Library/Application\ Support/FunnyHow || true
+	@echo "Removing caches..."
+	@rm -rf ~/Library/Caches/com.funnyhow.* || true
+	@echo "Removing preferences..."
+	@rm -rf ~/Library/Preferences/com.funnyhow.* || true
+	@echo "Removing logs..."
+	@rm -rf /tmp/funnyhow*.log || true
+	@echo "Running xcodebuild clean..."
+	@xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) clean || true
+	@echo "✅ Everything cleaned!"
+
+rebuild: clean-all
+	@echo ""
+	@echo "🔨 Building fresh release..."
+	@$(MAKE) release
+	@echo ""
+	@echo "✅ Rebuild complete!"
+
+rebuild-unsigned: clean-all
+	@echo ""
+	@echo "🔨 Building fresh unsigned build for testing..."
+	@$(MAKE) export-unsigned
+	@echo ""
+	@echo "✅ Unsigned rebuild complete!"
