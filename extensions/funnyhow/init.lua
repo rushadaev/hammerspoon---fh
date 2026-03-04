@@ -716,6 +716,82 @@ function funnyhow._rebuildMenu()
 end
 
 --------------------------------------------------------------------------------
+-- BUNDLED MODULES
+--------------------------------------------------------------------------------
+
+-- Setup module path for bundled modules
+local function setupModulePath()
+    -- Get the path to the funnyhow extension
+    local extensionPath = hs.processInfo.resourcePath .. "/extensions/funnyhow"
+
+    -- Add modules directory to package.path
+    local modulesPath = extensionPath .. "/modules/?.lua"
+    if not package.path:find(modulesPath, 1, true) then
+        package.path = modulesPath .. ";" .. package.path
+        print("[FunnyHow] Added modules path: " .. modulesPath)
+    end
+end
+
+-- Load and initialize all bundled modules
+function funnyhow._loadBundledModules()
+    print("[FunnyHow] Loading bundled modules...")
+
+    setupModulePath()
+
+    -- Store loaded modules
+    funnyhow.modules = {}
+
+    -- List of modules to load (in dependency order)
+    local moduleList = {
+        { name = "auth", setup = false },
+        { name = "particles", setup = false },
+        { name = "privacy-overlay", setup = true },
+        { name = "window-positioning", setup = true },
+        { name = "window-focus", setup = true },
+        { name = "pomodoro", setup = true },
+        { name = "config-watcher", setup = true },
+        { name = "focus-mode", setup = true },
+        { name = "eye-break", setup = true },
+        -- Note: menubar and standup have external dependencies, load separately
+    }
+
+    for _, modInfo in ipairs(moduleList) do
+        local success, mod = pcall(require, "modules." .. modInfo.name)
+        if success then
+            funnyhow.modules[modInfo.name] = mod
+            if modInfo.setup and mod.setup then
+                local setupSuccess, err = pcall(mod.setup)
+                if setupSuccess then
+                    print("[FunnyHow] Loaded and initialized: " .. modInfo.name)
+                else
+                    print("[FunnyHow] Failed to setup " .. modInfo.name .. ": " .. tostring(err))
+                end
+            else
+                print("[FunnyHow] Loaded: " .. modInfo.name)
+            end
+        else
+            print("[FunnyHow] Failed to load " .. modInfo.name .. ": " .. tostring(mod))
+        end
+    end
+
+    -- Load menubar module (depends on privacy-overlay and auth)
+    local success, menubarMod = pcall(require, "modules.menubar")
+    if success then
+        funnyhow.modules["menubar"] = menubarMod
+        local setupSuccess, err = pcall(menubarMod.setup)
+        if setupSuccess then
+            print("[FunnyHow] Loaded and initialized: menubar")
+        else
+            print("[FunnyHow] Failed to setup menubar: " .. tostring(err))
+        end
+    else
+        print("[FunnyHow] Failed to load menubar: " .. tostring(menubarMod))
+    end
+
+    print("[FunnyHow] Bundled modules loaded")
+end
+
+--------------------------------------------------------------------------------
 -- INITIALIZATION
 --------------------------------------------------------------------------------
 
@@ -731,6 +807,10 @@ end
 function funnyhow.init()
     print("[FunnyHow] Initializing FunnyHow Locker v" .. funnyhow.config.APP_VERSION)
 
+    -- Load bundled modules first
+    funnyhow._loadBundledModules()
+
+    -- Create FunnyHow locker menubar
     funnyhow._createMenubar()
 
     if funnyhow.isAuthenticated() then

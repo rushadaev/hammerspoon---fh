@@ -1,8 +1,8 @@
 # FunnyHow Build Makefile
 
 # Project settings
-PROJECT = Hammerspoon.xcodeproj
-SCHEME = Hammerspoon
+WORKSPACE = FunnyHow.xcworkspace
+SCHEME = FunnyHow
 CONFIG = Release
 BUILD_DIR = build
 
@@ -24,20 +24,20 @@ help:
 	@echo "For distribution, use 'make archive' then sign in Xcode."
 
 build:
-	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration Debug build
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Debug build
 
 release:
-	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration Release build
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Release build
 
 archive:
-	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration Release archive -archivePath $(ARCHIVE_PATH)
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Release archive -archivePath $(ARCHIVE_PATH)
 	@echo ""
 	@echo "Archive created at: $(ARCHIVE_PATH)"
 	@echo "Open in Xcode to sign and export: open $(ARCHIVE_PATH)"
 
 export-unsigned:
 	@mkdir -p $(EXPORT_PATH)
-	xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration Release \
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Release \
 		-derivedDataPath $(BUILD_DIR)/DerivedData \
 		CONFIGURATION_BUILD_DIR=$(EXPORT_PATH) \
 		CODE_SIGN_IDENTITY="-" \
@@ -49,5 +49,5 @@ export-unsigned:
 
 clean:
 	rm -rf $(BUILD_DIR)
-	xcodebuild -project $(PROJECT) -scheme $(SCHEME) clean
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) clean
 	@echo "Build directory cleaned"

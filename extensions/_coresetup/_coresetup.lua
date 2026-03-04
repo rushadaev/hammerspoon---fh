@@ -648,11 +648,12 @@ coroutine.applicationYield = hs.coroutineApplicationYield
     -- Create config directory if it doesn't exist
     fs.mkdir(configdir)
 
-    -- Create default init.lua with FunnyHow locker
+    -- Create default init.lua with FunnyHow locker and all bundled modules
     local defaultConfig = [[-- Funny How Configuration
 -- This file is auto-generated on first run
 
--- Initialize FunnyHow Device Locker
+-- Initialize FunnyHow with all bundled modules
+-- (includes: menubar, window management, eye break, pomodoro, privacy overlay, etc.)
 local funnyhow = require("hs.funnyhow")
 funnyhow.init()
 
