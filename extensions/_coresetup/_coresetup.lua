@@ -652,11 +652,6 @@ coroutine.applicationYield = hs.coroutineApplicationYield
     local defaultConfig = [[-- Funny How Configuration
 -- This file is auto-generated on first run
 
--- Initialize FunnyHow with all bundled modules
--- (includes: menubar, window management, eye break, pomodoro, privacy overlay, etc.)
-local funnyhow = require("hs.funnyhow")
-funnyhow.init()
-
 -- Reload config hotkey (Cmd+Ctrl+R)
 hs.hotkey.bind({"cmd", "ctrl"}, "R", function()
   hs.reload()
@@ -664,6 +659,9 @@ end)
 
 -- Show alert on config load
 hs.alert.show("Funny How loaded")
+
+-- Add your customizations below this line
+-- Example: Window management, hotkeys, automations, etc.
 ]]
 
     local initFile = io.open(fullpath, "w")
@@ -680,9 +678,6 @@ hs.alert.show("Funny How loaded")
       hasinitfile = true
     else
       printf("-- ERROR: Could not create %s", prettypath)
-      -- Initialize FunnyHow anyway
-      local funnyhow = require("hs.funnyhow")
-      funnyhow.init()
       return hs.completionsForInputString, runstring
     end
   end
@@ -762,11 +757,16 @@ hs.alert.show("Funny How loaded")
   if not ok then hs.showError(errorMessage) return hs.completionsForInputString, runstring end
 
   -- FunnyHow: Auto-initialize if not already done
+  -- Auto-initialize FunnyHow Locker if not already loaded
   local funnyhowLoaded = package.loaded["hs.funnyhow"]
   if not funnyhowLoaded then
     print("-- Auto-initializing FunnyHow Locker")
-    local funnyhow = require("hs.funnyhow")
-    funnyhow.init()
+    local success, funnyhow = pcall(require, "hs.funnyhow")
+    if success and funnyhow then
+      funnyhow.init()
+    else
+      print("-- FunnyHow module not found (skipping)")
+    end
   end
 
   print "-- Done."

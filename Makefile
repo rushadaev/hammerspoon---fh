@@ -11,7 +11,7 @@ APP_NAME = Funny How.app
 ARCHIVE_PATH = $(BUILD_DIR)/FunnyHow.xcarchive
 EXPORT_PATH = $(BUILD_DIR)/export
 
-.PHONY: all clean clean-all rebuild rebuild-unsigned build archive export-unsigned export-signed help
+.PHONY: all clean clean-all rebuild rebuild-unsigned build archive export-unsigned export-signed dmg help
 
 help:
 	@echo "FunnyHow Build Commands:"
@@ -23,8 +23,9 @@ help:
 	@echo "  make clean-all      - Remove everything (app, configs, caches, logs)"
 	@echo "  make rebuild        - Clean everything and rebuild fresh (signed)"
 	@echo "  make rebuild-unsigned - Clean everything and rebuild unsigned (for testing)"
+	@echo "  make dmg              - Create signed DMG for distribution"
 	@echo ""
-	@echo "For distribution, use 'make archive' then sign in Xcode."
+	@echo "For distribution: 'make dmg' (requires Developer ID certificate in Xcode)"
 
 build:
 	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Debug build
@@ -52,6 +53,10 @@ export-unsigned:
 	@mkdir -p $(EXPORT_PATH)
 	@cp -R ~/Library/Developer/Xcode/DerivedData/FunnyHow-*/Build/Products/Debug/"$(APP_NAME)" $(EXPORT_PATH)/ 2>/dev/null || \
 		(echo "Error: Could not find built app. Build may have failed." && exit 1)
+	@echo "Copying FunnyHow module..."
+	@mkdir -p "$(EXPORT_PATH)/$(APP_NAME)/Contents/Resources/extensions/hs/funnyhow"
+	@cp -R extensions/funnyhow/* "$(EXPORT_PATH)/$(APP_NAME)/Contents/Resources/extensions/hs/funnyhow/"
+	@echo "✅ FunnyHow module copied to extensions/hs/funnyhow/"
 	@echo ""
 	@echo "✅ Unsigned app built at: $(EXPORT_PATH)/$(APP_NAME)"
 	@echo "NOTE: This is for local testing only. Not distributable."
@@ -98,3 +103,31 @@ rebuild-unsigned: clean-all
 	@$(MAKE) export-unsigned
 	@echo ""
 	@echo "✅ Unsigned rebuild complete!"
+
+dmg:
+	@echo "📦 Building signed DMG for distribution..."
+	@echo ""
+	@echo "Step 1: Building Release version..."
+	@xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Release \
+		ENABLE_ADDRESS_SANITIZER=NO \
+		ENABLE_THREAD_SANITIZER=NO \
+		ENABLE_UNDEFINED_BEHAVIOR_SANITIZER=NO \
+		build | grep -E '^\*\*|BUILD|error:|warning:' || true
+	@echo ""
+	@echo "Step 2: Copying app..."
+	@mkdir -p $(EXPORT_PATH)
+	@cp -R ~/Library/Developer/Xcode/DerivedData/FunnyHow-*/Build/Products/Release/"$(APP_NAME)" $(EXPORT_PATH)/ 2>/dev/null || \
+		(echo "❌ Error: Could not find built app" && exit 1)
+	@echo "Step 3: Copying FunnyHow module..."
+	@mkdir -p "$(EXPORT_PATH)/$(APP_NAME)/Contents/Resources/extensions/hs/funnyhow"
+	@cp -R extensions/funnyhow/* "$(EXPORT_PATH)/$(APP_NAME)/Contents/Resources/extensions/hs/funnyhow/"
+	@echo "Step 4: Creating DMG..."
+	@rm -f "$(BUILD_DIR)/FunnyHow.dmg"
+	@hdiutil create -volname "Funny How" -srcfolder "$(EXPORT_PATH)/$(APP_NAME)" -ov -format UDZO "$(BUILD_DIR)/FunnyHow.dmg"
+	@echo ""
+	@echo "✅ DMG created at: $(BUILD_DIR)/FunnyHow.dmg"
+	@echo ""
+	@echo "Next steps:"
+	@echo "1. Verify code signature: codesign -dv --verbose=4 '$(EXPORT_PATH)/$(APP_NAME)'"
+	@echo "2. Notarize with Apple (recommended): xcrun notarytool submit"
+	@echo "3. Distribute: $(BUILD_DIR)/FunnyHow.dmg"

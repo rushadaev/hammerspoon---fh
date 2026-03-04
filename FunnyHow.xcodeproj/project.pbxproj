@@ -6276,9 +6276,9 @@
 			productReference = 6AE181271D36E90B0097211C /* libnoises.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		9445CA0A19083251002568BB /* Funny How */ = {
+		9445CA0A19083251002568BB /* Hammerspoon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9445CA3C19083251002568BB /* Build configuration list for PBXNativeTarget "Funny How" */;
+			buildConfigurationList = 9445CA3C19083251002568BB /* Build configuration list for PBXNativeTarget "Hammerspoon" */;
 			buildPhases = (
 				CDFA91F1078130B13A38C135 /* [CP] Check Pods Manifest.lock */,
 				4F251E7F1A49D5BE00AB6103 /* Prepare secret header file */,
@@ -6288,6 +6288,7 @@
 				4FB852372735B02400462DD0 /* Embed Frameworks */,
 				4FF7395127344D370007074E /* Copy Extension Dylibs */,
 				4FF739B1273481C90007074E /* Copy Extension Lua files */,
+				FH2024030400000001 /* Copy FunnyHow Module */,
 				9445CA0919083251002568BB /* Resources */,
 				E849AEC367EA9502A25B9A7C /* [CP] Embed Pods Frameworks */,
 				4F6D9E3523074BC6006CC3E4 /* Update version/build numbers */,
@@ -6859,7 +6860,6 @@
 						CreatedOnToolsVersion = 7.0;
 					};
 					9445CA0A19083251002568BB = {
-						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
 								enabled = 1;
@@ -6872,7 +6872,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9445CA0619083251002568BB /* Build configuration list for PBXProject "Hammerspoon" */;
+			buildConfigurationList = 9445CA0619083251002568BB /* Build configuration list for PBXProject "FunnyHow" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -7176,6 +7176,21 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hammerspoon/Pods-Hammerspoon-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FH2024030400000001 /* Copy FunnyHow Module */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy FunnyHow Module";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PROJECT_DIR}/scripts/copy-funnyhow.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -8743,6 +8758,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F7F3B7B272DE98800E05732 /* Hammerspoon-Profile.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = X2K2WW6UUG;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -10525,6 +10542,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F7F3B7A272DE83500E05732 /* Hammerspoon-Debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = X2K2WW6UUG;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -10536,10 +10555,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F7F3B7C272DE99200E05732 /* Hammerspoon-Release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = X2K2WW6UUG;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -11732,7 +11756,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		9445CA0619083251002568BB /* Build configuration list for PBXProject "Hammerspoon" */ = {
+		9445CA0619083251002568BB /* Build configuration list for PBXProject "FunnyHow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9445CA3A19083251002568BB /* Debug */,
