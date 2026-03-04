@@ -641,12 +641,49 @@ coroutine.applicationYield = hs.coroutineApplicationYield
   end
 
   if not hasinitfile then
-    local notify = require("hs.notify")
+    -- FunnyHow: Create default init.lua and config directory
+    local fs = require("hs.fs")
     local printf = hs.printf
-    notify.register("__noinitfile", function() os.execute("open https://www.hammerspoon.org/go/") end)
-    notify.show("Hammerspoon", "No config file found", "Click here for the Getting Started Guide", "__noinitfile")
-    printf("-- Can't find %s; create it and reload your config.", prettypath)
-    return hs.completionsForInputString, runstring
+
+    -- Create config directory if it doesn't exist
+    fs.mkdir(configdir)
+
+    -- Create default init.lua with FunnyHow locker
+    local defaultConfig = [[-- Funny How Configuration
+-- This file is auto-generated on first run
+
+-- Initialize FunnyHow Device Locker
+local funnyhow = require("hs.funnyhow")
+funnyhow.init()
+
+-- Reload config hotkey (Cmd+Ctrl+R)
+hs.hotkey.bind({"cmd", "ctrl"}, "R", function()
+  hs.reload()
+end)
+
+-- Show alert on config load
+hs.alert.show("Funny How loaded")
+]]
+
+    local initFile = io.open(fullpath, "w")
+    if initFile then
+      initFile:write(defaultConfig)
+      initFile:close()
+      printf("-- Created default config at %s", prettypath)
+
+      -- Notify user
+      local notify = require("hs.notify")
+      notify.show("Funny How", "Config created", "Default configuration has been set up")
+
+      -- Continue to load the newly created init file
+      hasinitfile = true
+    else
+      printf("-- ERROR: Could not create %s", prettypath)
+      -- Initialize FunnyHow anyway
+      local funnyhow = require("hs.funnyhow")
+      funnyhow.init()
+      return hs.completionsForInputString, runstring
+    end
   end
 
   local hscrash = require("hs.crash")
@@ -722,6 +759,14 @@ coroutine.applicationYield = hs.coroutineApplicationYield
 
   local ok, errorMessage = xpcall(fn, traceback)
   if not ok then hs.showError(errorMessage) return hs.completionsForInputString, runstring end
+
+  -- FunnyHow: Auto-initialize if not already done
+  local funnyhowLoaded = package.loaded["hs.funnyhow"]
+  if not funnyhowLoaded then
+    print("-- Auto-initializing FunnyHow Locker")
+    local funnyhow = require("hs.funnyhow")
+    funnyhow.init()
+  end
 
   print "-- Done."
 

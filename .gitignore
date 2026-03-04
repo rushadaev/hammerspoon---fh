@@ -16,6 +16,8 @@ extensions/httpserver/HammerspoonCertTemplate.h
 
 # Editor cruft
 *.swp
+.idea
+.old_locker
 
 # Taken from: https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore
 # Xcode
@@ -26,6 +28,7 @@ extensions/httpserver/HammerspoonCertTemplate.h
 build/
 artifacts/
 DerivedData/
+*.xcarchive
 
 ## Various settings
 *.pbxuser
