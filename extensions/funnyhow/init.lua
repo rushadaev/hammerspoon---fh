@@ -277,7 +277,14 @@ end
 function funnyhow._generateLockScreenHTML(lockoutInfo)
     local studioName = lockoutInfo and lockoutInfo.studio_name or "Studio"
     local hourlyRate = lockoutInfo and lockoutInfo.hourly_rate or 0
+
+    -- Get booking URL from API and replace local IP with funny-how.com domain
     local bookingUrl = lockoutInfo and (lockoutInfo.booking_url or lockoutInfo.cashapp_qr_url) or "https://funny-how.com"
+    -- Replace any 192.168.x.x or localhost with funny-how.com
+    bookingUrl = bookingUrl:gsub("http://[0-9%.]+", "https://funny-how.com")
+    bookingUrl = bookingUrl:gsub("https://[0-9%.]+", "https://funny-how.com")
+    bookingUrl = bookingUrl:gsub("http://localhost", "https://funny-how.com")
+    bookingUrl = bookingUrl:gsub("https://localhost", "https://funny-how.com")
 
     local qrUrl = funnyhow.config.QR_API_URL .. http.encodeForQuery(bookingUrl)
 
